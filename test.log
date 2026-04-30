@@ -1,0 +1,7 @@
+Before calling sum
+Executing sum with arguments: (1, 2, 3, 4, 5), {}
+Inside sum function
+Result of sum: 15
+Execution time for sum: 3.814697265625e-06 seconds
+After calling sum
+Result: 0

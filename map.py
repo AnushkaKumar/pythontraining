@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Generator, Sequence, TypeVar
+from typing import Any, Generator, Sequence, TypeVar
 
 
 class Animal:
@@ -10,11 +10,10 @@ class Animal:
         return f"Animal(name={self.name})"
 
 
-T = TypeVar("T", bound=Animal)
-K = TypeVar("K", bound=str)
+T = TypeVar("T")
 
 
-def my_map(func: Callable[[T], K], item_list: Sequence[T]) -> Generator[K, None, None]:
+def my_map(func: Callable[[T], T], item_list: Sequence[T]) -> Generator[T, None, None]:
     print("Inside my_map")
     for idx in range(len(item_list)):
         yield func(item_list[idx])
@@ -31,23 +30,23 @@ def capitalize(s: str) -> str:
 
 
 if __name__ == "__main__":
-    # item_ls = [1, 2, 3, 4, 5]
-    # print("Before calling my_map")
-    # map_ret = my_map(square, item_ls)
-    # print("After calling my_map")
+    item_ls = [1, 2, 3, 4, 5]
+    print("Before calling my_map")
+    map_ret = my_map(square, item_ls)
+    print("After calling my_map")
 
-    # for i in map_ret:
-    #     print(i)
+    for i in map_ret:
+        print(i)
 
-    # str_ls = ["hello", "world", "python"]
-    # print("Before calling my_map for capitalize")
-    # map_ret_str = my_map(capitalize, str_ls)
-    # print("After calling my_map for capitalize")
-    # for s in map_ret_str:
-    #     print(s)
+    str_ls = ["hello", "world", "python"]
+    print("Before calling my_map for capitalize")
+    map_ret_str = my_map(capitalize, str_ls)
+    print("After calling my_map for capitalize")
+    for s in map_ret_str:
+        print(s)
 
     animal_ls = [Animal("cat"), Animal("dog"), Animal("rabbit")]
 
-    y = my_map(lambda a: f"Animal name: {a.name}", animal_ls)
+    y = my_map(lambda a: Animal(f"New {a.name}"), animal_ls)
     for name in y:
         print(name)
